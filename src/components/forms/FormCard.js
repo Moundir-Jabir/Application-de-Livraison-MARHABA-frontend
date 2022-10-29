@@ -39,11 +39,14 @@ const FormCard = (props) => {
                                 </div>
                                 <div className="row">
                                     {
-                                        links.map(link => (
-                                            <div className={classname}>
+                                        links.map((link, i) => {
+                                            if(i == 1)
+                                                classname += " right-align"
+                                            return (<div className={classname}>
                                                 <p className="margin medium-small"><Link to={link.to}>{link.link}</Link></p>
-                                            </div>
-                                        ))
+                                            </div>)
+                                        }
+                                        )
                                     }
                                 </div>
                             </form>

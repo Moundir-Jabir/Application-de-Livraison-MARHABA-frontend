@@ -5,16 +5,26 @@ import Login from './pages/Accueil/Login'
 import Register from './pages/Accueil/Register'
 import ForgotPassword from './pages/Accueil/ForgotPassword'
 import Dashboard from './pages/User/Dashboard'
+import { isAuthenticated } from './helpers'
 
 const Router = () => {
+
+    const PrivateRoute = ({ children }) => {
+        return isAuthenticated() ? children : <Navigate to="/login" />
+    }
+
+    const PublicRoute = ({ children }) => {
+        return isAuthenticated() ? <Navigate to="/dashboard" /> : children
+    }
+
     return (
         <Routes>
             <Route path='/' element={<Navigate to="home" />} />
-            <Route path='home' element={<Home />} />
-            <Route path='register' element={<Register />} />
-            <Route path='login' element={<Login />} />
-            <Route path='forgotpassword' element={<ForgotPassword />} />
-            <Route path='dashboard' element={<Dashboard />} />
+            <Route path='home' element={<PublicRoute><Home /></PublicRoute>} />
+            <Route path='register' element={<PublicRoute><Register /></PublicRoute>} />
+            <Route path='login' element={<PublicRoute><Login /></PublicRoute>} />
+            <Route path='forgotpassword' element={<PublicRoute><ForgotPassword /></PublicRoute>} />
+            <Route path='dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
         </Routes>
     )
 }

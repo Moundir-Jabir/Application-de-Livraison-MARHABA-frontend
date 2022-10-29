@@ -7,3 +7,17 @@ export const logout = () => {
     localStorage.removeItem('user_info')
     localStorage.removeItem('token')
 }
+
+export const isAuthenticated = () => {
+
+    const jwt = localStorage.getItem('token');
+
+    if(jwt) {
+
+        return JSON.parse(jwt)
+
+    }
+
+    return false
+
+}
