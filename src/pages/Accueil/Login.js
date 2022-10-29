@@ -1,64 +1,53 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { API_URL } from '../../config'
+import toastr from 'toastr'
+import 'toastr/build/toastr.css'
+import { login } from '../../helpers'
+import FormCard from '../../components/forms/FormCard'
 
 const Login = () => {
+
+  const navigate = useNavigate()
+
+  const [user, setUser] = useState({
+    email: "", password: ""
+  })
+
+  const submit = (e) => {
+    e.preventDefault()
+    axios.post(`${API_URL}/auth/login`, user)
+      .then((res) => {
+        toastr.success('User logged successfuly', 'Login', {
+          positionClass: "toast-bottom-left"
+        })
+        login(res.data.user, res.data.token)
+        navigate('/dashboard')
+      })
+      .catch((err) => {
+        if (err.response.data.erreur) {
+          toastr.warning(err.response.data.erreur, 'Please Check form !', {
+            positionClass: "toast-bottom-left"
+          })
+        } else {
+          toastr.warning("Problem connection", 'Sorry !', {
+            positionClass: "toast-bottom-left"
+          })
+        }
+      })
+  }
+  const { email, password } = user
+  const links = [
+    { link: "Register Now!", to: "/register" },
+    { link: "Forgot password ?", to: "/forgotpassword" }
+  ]
+  let inputs = [
+    { name: "email", value: email, type: "email", icon: "mail_outline", label: "Email", error: "" },
+    { name: "password", value: password, type: "password", icon: "lock_outline", label: "Password", error: "" }
+  ]
   return (
-    <div className="row">
-      <div className="col s12">
-        <div className="container">
-          <div id="register-page" className="row">
-            <div className="col s12 m6 l4 z-depth-4 card-panel border-radius-6 register-card bg-opacity-8">
-              <form className="login-form">
-                <div className="row">
-                  <div className="input-field col s12">
-                    <h5 className="ml-4">Register</h5>
-                    <p className="ml-4">Join to our community now !</p>
-                  </div>
-                </div>
-                <div className="row margin">
-                  <div className="input-field col s12">
-                    <i className="material-icons prefix pt-2">person_outline</i>
-                    <input id="username" type="text" />
-                    <label for="username" className="center-align">Username</label>
-                  </div>
-                </div>
-                <div className="row margin">
-                  <div className="input-field col s12">
-                    <i className="material-icons prefix pt-2">mail_outline</i>
-                    <input id="email" type="email" />
-                    <label for="email">Email</label>
-                  </div>
-                </div>
-                <div className="row margin">
-                  <div className="input-field col s12">
-                    <i className="material-icons prefix pt-2">lock_outline</i>
-                    <input id="password" type="password" />
-                    <label for="password">Password</label>
-                  </div>
-                </div>
-                <div className="row margin">
-                  <div className="input-field col s12">
-                    <i className="material-icons prefix pt-2">lock_outline</i>
-                    <input id="password-again" type="password" />
-                    <label for="password-again">Password again</label>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="input-field col s12">
-                    <a href="index.html" className="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12">Register</a>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="input-field col s12">
-                    <p className="margin medium-small"><a href="user-login.html">Already have an account? Login</a></p>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        <div className="content-overlay"></div>
-      </div>
-    </div>
+    <FormCard submit={submit} title="Login" description="" button="Login" links={links} inputs={inputs} setState={setUser} state={user} />
   )
 }
 
