@@ -7,8 +7,8 @@ const FormInput = (props) => {
             <div className="input-field col s12">
                 <i className="material-icons prefix pt-2">{icon}</i>
                 <input onChange={onChange} value={value} name={name} id={name} type={type} />
-                <label for={name}>{label}</label>
-                <small className="errorTxt2"><div class="error">{error}</div></small>
+                <label htmlFor={name}>{label}</label>
+                <small className="errorTxt2"><div className="error">{error}</div></small>
             </div>
         </div>
     )

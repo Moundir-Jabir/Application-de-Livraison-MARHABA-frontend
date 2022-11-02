@@ -6,6 +6,8 @@ import Register from './pages/Accueil/Register'
 import ForgotPassword from './pages/Accueil/ForgotPassword'
 import Dashboard from './pages/User/Dashboard'
 import { isAuthenticated } from './helpers'
+import ResetPassword from './pages/Accueil/ResetPassword'
+import NotFound from './pages/Accueil/NotFound'
 
 const Router = () => {
 
@@ -24,7 +26,9 @@ const Router = () => {
             <Route path='register' element={<PublicRoute><Register /></PublicRoute>} />
             <Route path='login' element={<PublicRoute><Login /></PublicRoute>} />
             <Route path='forgotpassword' element={<PublicRoute><ForgotPassword /></PublicRoute>} />
+            <Route path='resetpassword/:token' element={<PublicRoute><ResetPassword /></PublicRoute>} />
             <Route path='dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path='*' element={<NotFound />} />
         </Routes>
     )
 }
