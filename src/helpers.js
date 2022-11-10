@@ -10,7 +10,7 @@ export const logout = () => {
 
 export const isAuthenticated = () => {
 
-    const jwt = localStorage.getItem('token');
+    let jwt = localStorage.getItem('token');
 
     if(jwt) {
 

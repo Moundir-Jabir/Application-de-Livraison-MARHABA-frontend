@@ -2,11 +2,6 @@
 //----------------------
 
 (function (window, document, $) {
-  // //Sample toast
-  setTimeout(function () {
-    M.toast({ html: "Hey! I am a toast." })
-  }, 2000)
-
   // Donut chart
   // -----------
   var CurrentBalanceDonutChart = new Chartist.Pie(
@@ -24,18 +19,6 @@
       donutWidth: 8,
       showLabel: false,
       plugins: [
-        Chartist.plugins.tooltip({
-          class: "current-balance-tooltip",
-          appendToBody: true
-        }),
-        Chartist.plugins.fillDonut({
-          items: [
-            {
-              content:
-                '<p class="small">Balance</p><h5 class="mt-0 mb-0">$ 10k</h5>'
-            }
-          ]
-        })
       ]
     }
   )
@@ -64,10 +47,6 @@
         divisor: 2
       }),
       plugins: [
-        Chartist.plugins.tooltip({
-          class: "total-transaction-tooltip",
-          appendToBody: true
-        })
       ],
       fullWidth: true
     }
@@ -364,45 +343,6 @@
     }
   }
   var SLlabels = ["January", "February", "March", "April", "May", "June"]
-
-  var LineSL3ctx = document
-    .getElementById("custom-line-chart-sample-three")
-    .getContext("2d")
-
-  var gradientStroke = LineSL3ctx.createLinearGradient(500, 0, 0, 200)
-  gradientStroke.addColorStop(0, "#8133ff")
-  gradientStroke.addColorStop(1, "#ff4bac")
-
-  var gradientFill = LineSL3ctx.createLinearGradient(500, 0, 0, 200)
-  gradientFill.addColorStop(0, "#8133ff")
-  gradientFill.addColorStop(1, "#ff4bac")
-
-  var SL3Chart = new Chart(LineSL3ctx, {
-    type: "line",
-    data: {
-      labels: SLlabels,
-      datasets: [
-        {
-          label: "My Second dataset",
-          borderColor: gradientStroke,
-          pointColor: "#fff",
-          pointBorderColor: gradientStroke,
-          pointBackgroundColor: "#fff",
-          pointHoverBackgroundColor: gradientStroke,
-          pointHoverBorderColor: gradientStroke,
-          pointRadius: 4,
-          pointBorderWidth: 1,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 1,
-          fill: true,
-          backgroundColor: gradientFill,
-          borderWidth: 1,
-          data: [24, 18, 20, 30, 40, 43]
-        }
-      ]
-    },
-    options: SLOption
-  })
   // charts update on sidenav collapse
   $('.logo-wrapper .navbar-toggler').on('click', function () {
     setTimeout(function () {

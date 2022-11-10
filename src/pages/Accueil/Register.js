@@ -11,7 +11,7 @@ const Register = () => {
   const navigate = useNavigate()
 
   const [user, setUser] = useState({
-    name: "", email: "", password: "", password2: ""
+    name: "", email: "", role: "client", password: "", password2: ""
   })
 
   const [error, setError] = useState({
@@ -62,7 +62,7 @@ const Register = () => {
     }
   }
 
-  const { name, email, password, password2 } = user
+  const { name, email, role, password, password2 } = user
   const { nameError, emailError, passwordError, password2Error } = error
   const links = [
     { link: "Already have an account? Login", to: "/login" }
@@ -70,6 +70,7 @@ const Register = () => {
   let inputs = [
     { name: "name", value: name, type: "text", icon: "person_outline", label: "Full Name", error: nameError },
     { name: "email", value: email, type: "email", icon: "mail_outline", label: "Email", error: emailError },
+    { name: "role", value: role, type: "select", icon: "person_outline", label: "Role", error: "", options: ["client", "livreur"] },
     { name: "password", value: password, type: "password", icon: "lock_outline", label: "Password", error: passwordError },
     { name: "password2", value: password2, type: "password", icon: "lock_outline", label: "Password again", error: password2Error }
   ]

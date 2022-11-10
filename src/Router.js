@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Accueil/Home'
 import Login from './pages/Accueil/Login'
@@ -8,11 +8,18 @@ import Dashboard from './pages/User/Dashboard'
 import { isAuthenticated } from './helpers'
 import ResetPassword from './pages/Accueil/ResetPassword'
 import NotFound from './pages/Accueil/NotFound'
+import Navbar from './components/headers/Navbar'
+import Profil from './pages/User/Profil'
 
 const Router = () => {
 
     const PrivateRoute = ({ children }) => {
-        return isAuthenticated() ? children : <Navigate to="/login" />
+        return isAuthenticated() ? (
+            <Fragment>
+                <Navbar />
+                {children}
+            </Fragment>
+        ) : <Navigate to="/login" />
     }
 
     const PublicRoute = ({ children }) => {
@@ -21,13 +28,14 @@ const Router = () => {
 
     return (
         <Routes>
-            <Route path='/' element={<Navigate to="home" />} />
+            <Route path='/' element={<Navigate to="login" />} />
             <Route path='home' element={<PublicRoute><Home /></PublicRoute>} />
             <Route path='register' element={<PublicRoute><Register /></PublicRoute>} />
             <Route path='login' element={<PublicRoute><Login /></PublicRoute>} />
             <Route path='forgotpassword' element={<PublicRoute><ForgotPassword /></PublicRoute>} />
             <Route path='resetpassword/:token' element={<PublicRoute><ResetPassword /></PublicRoute>} />
             <Route path='dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path='profil' element={<PrivateRoute><Profil /></PrivateRoute>} />
             <Route path='*' element={<NotFound />} />
         </Routes>
     )

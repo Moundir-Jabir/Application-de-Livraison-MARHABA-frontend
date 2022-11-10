@@ -15,7 +15,7 @@ const FormCard = (props) => {
 
     let classname = "input-field col s" + (12 / links.length)
     return (
-        <div className="vertical-layout vertical-menu-collapsible page-header-dark vertical-modern-menu preload-transitions 1-column forgot-bg blank-page blank-page" data-open="click" data-menu="vertical-modern-menu" data-col="1-column">
+        <div className="register-bg vertical-layout vertical-menu-collapsible page-header-dark vertical-modern-menu preload-transitions 1-column forgot-bg blank-page blank-page" data-open="click" data-menu="vertical-modern-menu" data-col="1-column">
             <div className="row">
                 <div className="col s12">
                     <div className="container">
@@ -30,7 +30,7 @@ const FormCard = (props) => {
                                     </div>
                                     {
                                         inputs.map((input, i) => (
-                                            <FormInput key={i} onChange={update} value={input.value} name={input.name} type={input.type} icon={input.icon} label={input.label} error={input.error} />
+                                            <FormInput key={i} onChange={update} value={input.value} name={input.name} type={input.type} icon={input.icon} label={input.label} error={input.error} options={input.options} />
                                         ))
                                     }
                                     <div className="row">
@@ -56,7 +56,6 @@ const FormCard = (props) => {
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }
